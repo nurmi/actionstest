@@ -15,6 +15,6 @@ jobs:
       - name: Run env
         run: env
       - name: Run env
-        run: go	
+        run: go	version
       - name: Run go build
         run: go install
