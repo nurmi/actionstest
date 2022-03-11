@@ -14,7 +14,9 @@ jobs:
     steps:
       - name: Run env
         run: env
-      - name: Run env
+      - name: Run go version
         run: go	version
+      - name: Run ls
+        run: ls -al
       - name: Run go build
         run: go install
