@@ -25,3 +25,5 @@ jobs:
         run: ls -al
       - name: Run go build
         run: go install
+      - name: Run tool
+        run: syft version
