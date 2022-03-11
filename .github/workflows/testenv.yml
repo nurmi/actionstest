@@ -12,6 +12,7 @@ jobs:
   testenv:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2    
       - name: Run env
         run: env
       - name: Run go version
