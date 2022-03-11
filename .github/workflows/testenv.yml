@@ -49,7 +49,7 @@ jobs:
       - name: Get Anchore Application Version
         run: |
           export ANCHORE_APP_VERSION_NAME=`git describe --tags ${GITHUB_SHA}`
-          echo 'ANCHORE_APP_VERSION_ID=`anchorectl -o json application version list ${ANCHORE_APP_ID} | jq '.data[] | select(.version_name=="${ANCHORE_APP_VERSION_NAME}").application_version_id'	
+          echo 'ANCHORE_APP_VERSION_ID=`anchorectl -o json application version list ${ANCHORE_APP_ID} | jq ".data[] | select(.version_name==\"${ANCHORE_APP_VERSION_NAME}\").application_version_id"`'	
           export ANCHORE_APP_VERSION_ID=4567
       - name: Add new source SBOM to Anchore application/version
         run: echo 'anchorectl application version artifact add ${ANCHORE_APP_ID} ${ANCHORE_APP_VERSION_ID} source --uuid ${ANCHORE_SOURCE_SBOM_ID}'
