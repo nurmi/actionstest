@@ -22,7 +22,6 @@ jobs:
       - name: Run required tools check
         run: |
           go version
-          syft version
           jq --version
       - name: Run ls
         run: ls -al
