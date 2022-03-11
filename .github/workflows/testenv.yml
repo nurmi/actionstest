@@ -27,3 +27,7 @@ jobs:
         run: go install
       - name: Run tool
         run: syft version
+      - name: Generate Source SBOM
+        run: echo 'anchorectl sbom -o json create . > ./sbom.json'
+      - name: Import Source SBOM
+        run: echo anchorectl source import --sbomFile ./sbom.json --repoHost ${GITHUB_SERVER_URL} --repoName ${GITHUB_REPOSITORY} --revision ${GITHUB_SHA}
