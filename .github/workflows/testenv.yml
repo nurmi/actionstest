@@ -31,22 +31,23 @@ jobs:
         run: echo 'anchorectl sbom -o json create . > ./sbom.json'
       - name: Import Source SBOM
         run: |
-	  echo anchorectl source import --sbomFile ./sbom.json --repoHost ${GITHUB_SERVER_URL} --repoName ${GITHUB_REPOSITORY} --revision ${GITHUB_SHA}
-	  echo 'ANCHORE_SOURCE_SBOM_ID=`cat sbom.json | jq .source.target.manifestDigest`'
-	  export ANCHORE_SOURCE_SBOM_ID=sha256:1234eeee
+          echo anchorectl source import --sbomFile ./sbom.json --repoHost ${GITHUB_SERVER_URL} --repoName ${GITHUB_REPOSITORY} --revision ${GITHUB_SHA}
+          echo 'ANCHORE_SOURCE_SBOM_ID=`cat sbom.json | jq .source.target.manifestDigest`'
+          export ANCHORE_SOURCE_SBOM_ID=sha256:1234eeee
       - name: Build a Container
         run: docker build -t localimage:latest .
       - name: Generate and Import Image SBOM
         run: |
-	  echo 'anchorectl -o json sbom upload localimage:latest > sbom.json'
-	  echo 'ANCHORE_IMAGE_SBOM_ID=`cat sbom.json | jq .source.target.manifestDigest`'
-	  export ANCHORE_IMAGE_SBOM_ID=sha256:1234ffff
+          echo 'anchorectl -o json sbom upload localimage:latest > sbom.json'
+          echo 'ANCHORE_IMAGE_SBOM_ID=`cat sbom.json | jq .source.target.manifestDigest`'
+          export ANCHORE_IMAGE_SBOM_ID=sha256:1234ffff
       - name: Get Anchore Application ID
         run: |
-	  echo 'ANCHORE_APP_ID=`anchorectl -o json application list |jq ".\"data\"[] | select(.name==\"${GITHUB_REPOSITORY}\").application_id"`'
+          echo 'ANCHORE_APP_ID=`anchorectl -o json application list |jq ".\"data\"[] | select(.name==\"${GITHUB_REPOSITORY}\").application_id"`'
           export ANCHORE_APP_ID=1234
       - name: Get Anchore Application Version
         run: |
+          export ANCHORE_APP_VERSION_NAME=
           echo 'ANCHORE_APP_VERSION_ID=`anchorectl -o json application version list ${ANCHORE_APP_ID} | jq '.data[] | select(.version_name=="${ANCHORE_APP_VERSION_NAME}").application_version_id'	
           export ANCHORE_APP_VERSION_ID=4567
       - name: Add new source sbom to Anchore application/version
