@@ -1,0 +1,14 @@
+# commit
+GITHUB_SHA=f1c1985403e4635a59d488cab6eac25a4f90379e
+
+# server
+GITHUB_SERVER_URL=https://github.com
+
+# repo
+GITHUB_REPOSITORY=nurmi/actionstest
+
+ANCHORE_APP_NAME=`
+ANCHORE_APP_ID=`anchorectl -o json application list |jq '."data"[] | select(.name=="anchore-cli").application_id'`
+
+ANCHORE_APP_NAME="anchore-cli"
+ANCHORE_APP_ID=`anchorectl -o json application list |jq ".\"data\"[] | select(.name==\"${ANCHORE_APP_NAME}\").application_id"`
